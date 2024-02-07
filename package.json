@@ -16,8 +16,15 @@
   "activationEvents": [],
   "contributes": {
     "configuration": {},
-    "commands": [],
-    "menus": { "commandPalette": [] }
+    "commands": [
+      {
+        "command": "in-terminal.helloWorld",
+        "title": "Hello World"
+      }
+    ],
+    "menus": {
+      "commandPalette": []
+    }
   },
   "bugs": {
     "url": "https://github.com/talkohavy/open-terminal-vscode-extension/issues"
@@ -33,18 +40,26 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": ["vscode", "vsc", "extension", "terminal"],
-  "categories": ["Other"],
+  "keywords": [
+    "vscode",
+    "vsc",
+    "extension",
+    "terminal"
+  ],
+  "categories": [
+    "Other"
+  ],
   "dependencies": {
-    "@types/lodash": "^4.14.202",
-    "@types/node": "^20.11.16"
+    "@types/node": "^20.11.16",
+    "@types/vscode": "^1.86.0",
+    "vscode": "^1.1.37"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
+    "eslint-plugin-ezlint": "^1.1.6",
     "prettier": "^3.2.5",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
-    "vscode": "^1.1.4",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4"
   }

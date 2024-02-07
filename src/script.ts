@@ -12,9 +12,7 @@ const Script = {
 
     term.show(true);
 
-    term.sendText(
-      `(${command} ${runtimeArgs.join(' ')} ) && echo 'Command executed successfully' || echo 'An error occurred'`,
-    );
+    term.sendText(command + runtimeArgs.join(' '));
   },
 };
 

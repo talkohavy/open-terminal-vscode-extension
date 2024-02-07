@@ -2,7 +2,7 @@ import * as querystring from 'querystring';
 import * as vscode from 'vscode';
 import * as Commands from './commands';
 
-class DebugLauncherUriHandler implements vscode.UriHandler {
+class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
 
   constructor() {
@@ -29,4 +29,4 @@ class DebugLauncherUriHandler implements vscode.UriHandler {
   }
 }
 
-export default DebugLauncherUriHandler;
+export default UriHandler;

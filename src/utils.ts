@@ -3,7 +3,7 @@ import * as Commands from './commands';
 
 const Utils = {
   activateCommand(context: vscode.ExtensionContext) {
-    const { commands } = vscode.extensions.getExtension('open.terminal').packageJSON.contributes;
+    const { commands } = vscode.extensions.getExtension('open.in-terminal').packageJSON.contributes;
 
     commands.forEach(({ command }) => {
       const commandName = command.split('.').pop() as string,
