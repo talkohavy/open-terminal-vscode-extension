@@ -18,8 +18,12 @@
     "configuration": {},
     "commands": [
       {
-        "command": "in-terminal.helloWorld",
-        "title": "Hello World"
+        "command": "in-terminal.restart",
+        "title": "Open Terminal: Restart"
+      },
+      {
+        "command": "in-terminal.open",
+        "title": "Open Terminal: Open"
       }
     ],
     "menus": {
@@ -40,15 +44,8 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": [
-    "vscode",
-    "vsc",
-    "extension",
-    "terminal"
-  ],
-  "categories": [
-    "Other"
-  ],
+  "keywords": ["vscode", "vsc", "extension", "terminal"],
+  "categories": ["Other"],
   "dependencies": {
     "@types/node": "^20.11.16",
     "@types/vscode": "^1.86.0",

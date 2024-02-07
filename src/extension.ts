@@ -1,21 +1,34 @@
 import * as vscode from 'vscode';
 import UriHandler from './uriHandler';
-import Utils from './utils';
 
 function activate(context: vscode.ExtensionContext) {
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand('in-terminal.helloWorld', () => {
-    // Command 1: show a pop-up toast
-    vscode.window.showInformationMessage('Hello World');
+  const disposable = vscode.commands.registerCommand('in-terminal.restart', () => {
+    vscode.window.showInformationMessage('Open Terminal Restarted ✅');
+  });
+
+  const disposable2 = vscode.commands.registerCommand('in-terminal.open', () => {
+    vscode.window.showInformationMessage('A new Terminal opened 🚀');
   });
 
   context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable2);
 
   new UriHandler();
 
-  return Utils.activateCommand(context);
+  // return activateCommand(context);
 }
+
+// function activateCommand(context: vscode.ExtensionContext) {
+//   const { commands } = vscode.extensions.getExtension('open.in-terminal').packageJSON.contributes;
+
+//   commands.forEach(({ command }) => {
+//     const commandName = command.split('.').pop() as string;
+//     console.log(commandName);
+//     const handler = () => {};
+//     // const disposable = vscode.commands.registerCommand(command, handler);
+
+//     // context.subscriptions.push(disposable);
+//   });
+// }
 
 export { activate };

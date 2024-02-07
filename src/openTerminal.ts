@@ -1,11 +1,27 @@
 import * as vscode from 'vscode';
-import Script from './script';
+import { delay, getColor } from './helpers';
 
-async function execute(params) {
+async function openTerminal(params): Promise<any> {
   if (!params) return;
 
   try {
-    await Script.run(params);
+    const { name, color, command, runtimeArgs, autoFocus } = params;
+
+    const term = vscode.window.createTerminal({
+      name,
+      color: getColor(color),
+      isTransient: false,
+      // iconPath,
+    });
+
+    await term.processId;
+    await delay(300);
+
+    autoFocus && term.show();
+
+    term.sendText(`${command} ${runtimeArgs.join(' ')}`);
+
+    vscode.window.showInformationMessage('A new Terminal opened 🚀');
   } catch (e) {
     console.error(e);
     return vscode.window.showErrorMessage('[Open Terminal] An error occurred, check the terminal');
@@ -22,4 +38,4 @@ async function execute(params) {
   // if (execute.command) return vscode.commands.executeCommand(execute.command);
 }
 
-export { execute };
+export { openTerminal };

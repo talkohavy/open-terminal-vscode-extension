@@ -1,6 +1,5 @@
-import * as querystring from 'querystring';
 import * as vscode from 'vscode';
-import * as Commands from './commands';
+import { openTerminal } from './openTerminal';
 
 class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
@@ -16,16 +15,28 @@ class UriHandler implements vscode.UriHandler {
   }
 
   handleUri(uri: vscode.Uri) {
-    const command = uri.path.replaceAll('/', '');
-    if (!command) return vscode.window.showErrorMessage('You need to provide a command');
+    const isPathExists = uri.path.replaceAll('/', '');
+    if (isPathExists)
+      return vscode.window.showErrorMessage('Url needs to look like: "vscode://open.in-terminal?config={...}"');
 
-    if (!Commands[command]) return vscode.window.showErrorMessage(`No command named "${command}" found`);
+    const terminalConfig = this.extractConfigFromUri(uri);
 
-    const paramsAsString = querystring.parse(uri.query).params as string;
+    return openTerminal(terminalConfig) as any;
+  }
 
-    const params = JSON.parse(paramsAsString);
+  extractConfigFromUri(uri: vscode.Uri) {
+    try {
+      const searchParams = new URLSearchParams(uri.query);
 
-    return Commands[command](params);
+      const configAsString = searchParams.get('config');
+
+      const config = JSON.parse(configAsString);
+
+      return config;
+    } catch (error) {
+      console.log(error);
+      vscode.window.showErrorMessage('Failed to extract config from URI...');
+    }
   }
 }
 
