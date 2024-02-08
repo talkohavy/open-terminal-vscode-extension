@@ -8,12 +8,17 @@
   "main": "out/extension.js",
   "publisher": "open",
   "scripts": {
-    "package": "vsce package --no-dependencies",
-    "publish": "npm run compile && vsce publish --no-dependencies",
     "compile": "webpack --mode development",
-    "compile:watch": "webpack --mode development --watch"
+    "compile:watch": "webpack --mode development --watch",
+    "test": "node --test",
+    "format-fix": "prettier . --write --config ./.prettierrc.mjs --ignore-path .prettierignore",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies",
+    "preversion": "npm test",
+    "version": "npm run format-fix && npm run compile && npm run package",
+    "postversion": "git push && git push --tags && npm publish"
   },
-  "activationEvents": [],
+  "activationEvents": ["onStartupFinished"],
   "contributes": {
     "configuration": {},
     "commands": [
@@ -44,15 +49,8 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": [
-    "vscode",
-    "vsc",
-    "extension",
-    "terminal"
-  ],
-  "categories": [
-    "Other"
-  ],
+  "keywords": ["vscode", "vsc", "extension", "terminal"],
+  "categories": ["Other"],
   "dependencies": {
     "@types/node": "^20.11.16",
     "@types/vscode": "^1.86.0"

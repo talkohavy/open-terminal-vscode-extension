@@ -1,5 +1,6 @@
 const path = require('path');
 
+/** @type {import('webpack').Configuration} */
 const config = {
   target: 'node',
   entry: './src/extension.ts',
@@ -8,6 +9,7 @@ const config = {
     filename: 'extension.js',
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: 'file:///[absolute-resource-path]',
+    clean: true,
   },
   devtool: 'cheap-module-source-map',
   externals: {

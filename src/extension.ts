@@ -17,6 +17,7 @@ function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.commands.registerCommand(id, () => {
       vscode.window.showInformationMessage(message);
     });
+    vscode.commands.executeCommand('open.in-terminal');
 
     context.subscriptions.push(disposable);
   });
