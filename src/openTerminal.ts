@@ -5,7 +5,7 @@ async function openTerminal(params): Promise<any> {
   if (!params) return;
 
   try {
-    const { name, color, command, runtimeArgs, autoFocus } = params;
+    const { name, color, command, runtimeArgs = [], autoFocus } = params;
 
     const term = vscode.window.createTerminal({
       name,
@@ -19,23 +19,23 @@ async function openTerminal(params): Promise<any> {
 
     autoFocus && term.show();
 
-    term.sendText(`${command} ${runtimeArgs.join(' ')}`);
+    const commandString = constructCommand({ command, runtimeArgs });
+
+    term.sendText(commandString);
 
     vscode.window.showInformationMessage('A new Terminal opened 🚀');
   } catch (e) {
     console.error(e);
     return vscode.window.showErrorMessage('[Open Terminal] An error occurred, check the terminal');
   }
+}
 
-  // vscode.window.showErrorMessage(`Invalid command returned with "${params}"`);
+function constructCommand({ command, runtimeArgs }) {
+  const flagsAndSubCommands = runtimeArgs?.join(' ') || '';
 
-  // vscode.window.showErrorMessage("Couldn't generate a terminal");
+  const commandString = `${command} ${flagsAndSubCommands}`;
 
-  // vscode.debug.startDebugging(undefined, params.configuration);
-
-  // return vscode.commands.executeCommand('workbench.debug.action.focusRepl');
-
-  // if (execute.command) return vscode.commands.executeCommand(execute.command);
+  return commandString;
 }
 
 export { openTerminal };
