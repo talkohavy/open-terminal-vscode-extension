@@ -16,7 +16,7 @@
     "publish": "vsce publish --no-dependencies",
     "preversion": "npm test",
     "version": "npm run format-fix && npm run compile && npm run package",
-    "postversion": "git push && git push --tags && npm publish"
+    "postversion": "git push && git push --tags && npm run publish"
   },
   "activationEvents": ["onStartupFinished"],
   "contributes": {
