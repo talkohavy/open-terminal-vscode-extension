@@ -32,9 +32,13 @@ class UriHandler implements vscode.UriHandler {
 
       const configAsString = searchParams.get('config');
 
-      const config = JSON.parse(configAsString);
+      const isEncoded = ['true', '1'].includes(searchParams.get('encoded'));
 
-      return config;
+      const decodedConfigAsString = isEncoded ? decodeURIComponent(atob(configAsString)) : configAsString;
+
+      const decodedConfig = JSON.parse(decodedConfigAsString);
+
+      return decodedConfig;
     } catch (error) {
       console.log(error);
       vscode.window.showErrorMessage('[Open Terminal] Failed to extract config from URI...', "That's on me");
