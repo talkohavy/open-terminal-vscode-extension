@@ -165,9 +165,11 @@ programs.forEach((program, index) => {
 });
 ```
 
+<br/>
+
 ### - B. Video Demo (running the code above)
 
-will be added soon...
+![File](assets/open.in-terminal-example.gif)
 
 <br/>
 
