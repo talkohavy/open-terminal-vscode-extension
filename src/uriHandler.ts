@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { openTerminal } from './openTerminal';
+import { ALLOWED_COMMANDS } from './commands';
 
 class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
@@ -10,18 +10,19 @@ class UriHandler implements vscode.UriHandler {
 
   dispose() {
     this.disposables.forEach((disposable) => disposable.dispose());
-
     this.disposables = [];
   }
 
   handleUri(uri: vscode.Uri) {
-    const isPathExists = uri.path.replaceAll('/', '');
-    if (isPathExists)
-      return vscode.window.showErrorMessage('Url needs to look like: "vscode://open.in-terminal?config={...}"');
+    const command = uri.path.replaceAll('/', '');
+    if (!Object.keys(ALLOWED_COMMANDS).includes(command))
+      return vscode.window.showErrorMessage(
+        "[Open Terminal] ❌ Allowed commands are: ['','/debug']. Example: 'vscode://open.in-terminal/debug?config={...}'",
+      );
 
     const terminalConfig = this.extractConfigFromUri(uri);
 
-    return openTerminal(terminalConfig) as any;
+    return ALLOWED_COMMANDS[command](terminalConfig);
   }
 
   extractConfigFromUri(uri: vscode.Uri) {
@@ -35,7 +36,7 @@ class UriHandler implements vscode.UriHandler {
       return config;
     } catch (error) {
       console.log(error);
-      vscode.window.showErrorMessage('Failed to extract config from URI...');
+      vscode.window.showErrorMessage('[Open Terminal] ❌ Failed to extract config from URI...');
     }
   }
 }

@@ -10,4 +10,12 @@ function getColor(colorName: string) {
   return new vscode.ThemeColor(`terminal.ansi${capitalizedColorName}`);
 }
 
-export { delay, getColor };
+function constructCommand({ command, runtimeArgs }) {
+  const flagsAndSubCommands = runtimeArgs?.join(' ') || '';
+
+  const commandString = `${command} ${flagsAndSubCommands}`;
+
+  return commandString;
+}
+
+export { constructCommand, delay, getColor };
