@@ -3,7 +3,7 @@
   "displayName": "Open Terminal Programmatically",
   "description": "Programmatically open your terminal 🚀",
   "icon": "assets/logo-big.png",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "out/extension.js",
   "publisher": "open",
@@ -18,9 +18,7 @@
     "version": "npm run format-fix && npm run compile && npm run package",
     "postversion": "git push && git push --tags && npm run publish"
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
+  "activationEvents": ["onStartupFinished"],
   "contributes": {
     "configuration": {},
     "commands": [
@@ -51,15 +49,8 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": [
-    "vscode",
-    "vsc",
-    "extension",
-    "terminal"
-  ],
-  "categories": [
-    "Other"
-  ],
+  "keywords": ["vscode", "vsc", "extension", "terminal"],
+  "categories": ["Other"],
   "dependencies": {
     "@types/node": "^20.11.16",
     "@types/vscode": "^1.86.0",
