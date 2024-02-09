@@ -6,7 +6,10 @@
 
 <br/>
 
-Open a vscode terminal in the simplest way possible. You can also use it to debug your code.
+Open VsCode terminal programmatically in the simplest way possible.  
+Launch VsCode's debugger programmatically, passing your configuration to it.
+
+![File](assets/open.in-terminal-example.gif)
 
 ## 1. Motivation
 
@@ -130,7 +133,32 @@ open 'vscode://open.in-terminal/debug?config={"type":"node","request":"launch","
 
 <br/>
 
-## 4. Demo
+## 4. Encoded Commands
+
+You might find yourself in a situation where your command contains special characters such that make the `open.in-terminal` command fail. In that case, we support an **encoded config** query param. To turn this feature on, you need 2 things:
+
+- to encode your config (example below)
+- add an `encoded` query param set to `true`
+
+Here's an example:
+
+```javascript
+import { execSync } from 'child_process';
+
+const programParams = { command: 'cd apps/backend && npm run dev' };
+
+  const configAsString = JSON.stringify(programParams);
+
+  const encodedConfig = btoa(encodeURIComponent(configAsString));
+
+  execSync(`open 'vscode://open.in-terminal?config=${encodedConfig}&encoded=1'`);
+```
+
+In the example above, the command contains `&&`, which causes problems during the parsing stage. By encoding your command, and turning on the `encoded` flag, you can avoid that, and have your command be parsed successfully. You **HAVE** to use `btoa` & `encodeURIComponent` since i'm using their reverse counterparts on the other side!
+
+<br/>
+
+## 5. Demo
 
 ### - A. Code Demo (in Node)
 
@@ -173,7 +201,7 @@ programs.forEach((program, index) => {
 
 <br/>
 
-## 5. Contributing
+## 6. Contributing
 
 If you found a bug, or have a feature request, please open an [issue](https://github.com/talkohavy/open-terminal-vscode-extension/issues) about it.
 
