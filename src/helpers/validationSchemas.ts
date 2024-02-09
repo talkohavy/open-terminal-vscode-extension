@@ -6,13 +6,12 @@ const openTerminalConfigSchema = yup.object({
   color: yup.string(),
   runtimeArgs: yup.array().of(yup.string()),
   autoFocus: yup.boolean(),
-  // .optional(),.nullable(),
 });
 
 const debugLaunchConfigSchema = yup.object({
+  type: yup.string().required(),
   name: yup.string().trim(),
-  request: yup.string().trim().required(),
-  type: yup.string(),
+  request: yup.string().trim(),
   cwd: yup.string(),
   runtimeExecutable: yup.string(),
   runtimeArgs: yup.array().of(yup.string()),

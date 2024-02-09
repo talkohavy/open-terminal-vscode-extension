@@ -17,7 +17,8 @@ class UriHandler implements vscode.UriHandler {
     const command = uri.path.replaceAll('/', '');
     if (!Object.keys(ALLOWED_COMMANDS).includes(command))
       return vscode.window.showErrorMessage(
-        "[Open Terminal] ❌ Allowed commands are: ['','/debug']. Example: 'vscode://open.in-terminal/debug?config={...}'",
+        "[Open Terminal] Allowed commands are: [ '', '/debug' ]. Example: 'vscode://open.in-terminal/debug?config={...}'",
+        'Forgive me',
       );
 
     const terminalConfig = this.extractConfigFromUri(uri);
@@ -36,7 +37,7 @@ class UriHandler implements vscode.UriHandler {
       return config;
     } catch (error) {
       console.log(error);
-      vscode.window.showErrorMessage('[Open Terminal] ❌ Failed to extract config from URI...');
+      vscode.window.showErrorMessage('[Open Terminal] Failed to extract config from URI...', "That's on me");
     }
   }
 }

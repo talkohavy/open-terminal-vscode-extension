@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
 import { constructCommand, delay, getColor } from './helpers';
-import { debugLaunchConfigSchema } from './helpers/validationSchemas';
+import { debugLaunchConfigSchema, openTerminalConfigSchema } from './helpers/validationSchemas';
 
-async function openTerminal(params): Promise<any> {
-  if (!params) return;
-
+async function openTerminal(terminalConfigRaw): Promise<any> {
   try {
-    const { name, color, command, runtimeArgs = [], autoFocus } = params;
+    const terminalConfig: any = await openTerminalConfigSchema.validate(terminalConfigRaw, { strict: true });
+
+    const { name, color, command, runtimeArgs = [], autoFocus } = terminalConfig;
 
     const term = vscode.window.createTerminal({
       name,
@@ -24,25 +24,25 @@ async function openTerminal(params): Promise<any> {
 
     term.sendText(commandString);
 
-    vscode.window.showInformationMessage('[Open Terminal] ✅ A new Terminal opened successfully 🚀');
+    vscode.window.showInformationMessage('[Open Terminal] A new Terminal opened successfully 🚀');
   } catch (e) {
-    console.error(e);
-    return vscode.window.showErrorMessage('[Open Terminal] ❌ An error occurred, check the terminal');
+    console.error(`[Open Terminal] ${e.message}`);
+    return vscode.window.showErrorMessage(`[Open Terminal] ${e.message}`, 'OK');
   }
 }
 
-async function debugTerminal(launchConfig) {
+async function debugTerminal(launchConfigRaw) {
   try {
-    const parsedLaunchConfig: any = await debugLaunchConfigSchema.validate(launchConfig, { strict: true });
+    const launchConfig: any = await debugLaunchConfigSchema.validate(launchConfigRaw, { strict: true });
 
-    await vscode.debug.startDebugging(undefined, parsedLaunchConfig);
+    await vscode.debug.startDebugging(undefined, launchConfig);
 
     await vscode.commands.executeCommand('workbench.debug.action.focusRepl');
 
-    await vscode.window.showInformationMessage('[Open Terminal] ✅ Debug session started successfully 🚀');
+    await vscode.window.showInformationMessage('[Open Terminal] Debug session started successfully 🚀');
   } catch (error) {
-    console.error(error);
-    return vscode.window.showErrorMessage('[Open Terminal] ❌', error.message);
+    console.error(`[Open Terminal] ${error.message}`);
+    return vscode.window.showErrorMessage(`[Open Terminal] ${error.message}`, "I'm sorry");
   }
 }
 
