@@ -14,7 +14,6 @@ export default class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
 
   constructor() {
-    // @ts-ignore
     this.disposables.push(vscode.window.registerUriHandler(this));
   }
 
@@ -23,19 +22,20 @@ export default class UriHandler implements vscode.UriHandler {
     this.disposables = [];
   }
 
-  // @ts-ignore
-  handleUri(uri: vscode.Uri) {
+  handleUri(uri: vscode.Uri): void {
     const command = uri.path.replaceAll('/', '') as CommandValues;
 
-    if (!Object.keys(COMMAND_MAPPER).includes(command))
-      return vscode.window.showErrorMessage(
+    if (!Object.keys(COMMAND_MAPPER).includes(command)) {
+      vscode.window.showErrorMessage(
         "[Open Terminal] Allowed commands are: [ '', '/debug', '/js-debug' ]. Example: 'vscode://open.in-terminal/js-debug?config={...}'",
         'Forgive me',
       );
+      return;
+    }
 
     const terminalConfig = this.extractConfigFromUri(uri);
 
-    return COMMAND_MAPPER[command](terminalConfig);
+    COMMAND_MAPPER[command](terminalConfig);
   }
 
   extractConfigFromUri(uri: vscode.Uri) {

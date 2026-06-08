@@ -11,7 +11,6 @@ export async function openTerminal(terminalConfigRaw: TerminalConfig) {
 
     const { name, color, command, runtimeArgs = [], autoFocus } = terminalConfig;
 
-    // @ts-ignore
     const term = vscode.window.createTerminal({
       name,
       color: getColor(color),
