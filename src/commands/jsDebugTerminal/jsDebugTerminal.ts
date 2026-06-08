@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
+import { TerminalConfig } from '../../common/types';
 import { constructCommand } from '../../common/utils/constructCommand';
 import { openTerminalConfigSchema } from '../../common/utils/validationSchemas';
-import { TerminalConfig } from '../../common/types';
 
 export async function jsDebugTerminal(terminalConfigRaw: TerminalConfig) {
   try {

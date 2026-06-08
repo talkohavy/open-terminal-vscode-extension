@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { openTerminal } from './commands/openTerminal';
 import { debugTerminal } from './commands/debugTerminal';
 import { jsDebugTerminal } from './commands/jsDebugTerminal';
+import { openTerminal } from './commands/openTerminal';
 import { Commands } from './common/types';
 
 const COMMAND_MAPPER = {

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { debugLaunchConfigSchema } from '../../common/utils/validationSchemas';
 import { LaunchConfig } from '../../common/types';
+import { debugLaunchConfigSchema } from '../../common/utils/validationSchemas';
 
 export async function debugTerminal(launchConfigRaw: LaunchConfig) {
   try {

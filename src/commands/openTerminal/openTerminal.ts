@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import { openTerminalConfigSchema } from '../../common/utils/validationSchemas';
-import { getColor } from '../../common/utils/getColor';
-import { delay } from '../../common/utils/delay';
-import { constructCommand } from '../../common/utils/constructCommand';
 import { TerminalConfig } from '../../common/types';
+import { constructCommand } from '../../common/utils/constructCommand';
+import { delay } from '../../common/utils/delay';
+import { getColor } from '../../common/utils/getColor';
+import { openTerminalConfigSchema } from '../../common/utils/validationSchemas';
 
 export async function openTerminal(terminalConfigRaw: TerminalConfig) {
   try {

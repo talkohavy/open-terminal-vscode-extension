@@ -5,12 +5,18 @@
   "icon": "assets/logo-big.png",
   "version": "0.1.0",
   "license": "MIT",
-  "main": "out/extension.js",
+  "main": "dist/extension.js",
   "publisher": "open",
   "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "test": "node --test",
+    "tsc": "tsc -p tsconfig.json",
     "build": "webpack --mode development",
     "build:watch": "webpack --mode development --watch",
-    "test": "node --test",
     "format-fix": "prettier . --write --config ./.prettierrc.mjs --ignore-path .prettierignore",
     "package": "vsce package --no-dependencies",
     "publish": "vsce publish --no-dependencies",
@@ -52,19 +58,25 @@
   "keywords": ["vscode", "vsc", "extension", "terminal"],
   "categories": ["Other"],
   "dependencies": {
-    "@types/node": "^20.11.16",
-    "@types/vscode": "^1.86.0",
-    "yup": "^1.3.3"
+    "@types/node": "^25.9.2",
+    "@types/vscode": "^1.120.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-plugin-ezlint": "^1.1.6",
-    "prettier": "^3.2.5",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
+    "eslint-plugin-ezlint": "^1.6.6",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-perfectionist": "^5.9.0",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "ts-loader": "^9.6.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1",
     "vsce": "^2.15.0",
     "vscode": "^1.1.37",
-    "webpack": "^5.90.1",
-    "webpack-cli": "^5.1.4"
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3"
   }
 }
