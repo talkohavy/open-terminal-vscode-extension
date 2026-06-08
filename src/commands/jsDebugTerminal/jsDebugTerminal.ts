@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
+import { TerminalConfig } from '../../common/types';
 import { constructCommand } from '../../common/utils/constructCommand';
 import { openTerminalConfigSchema } from '../../common/utils/validationSchemas';
-import { TerminalConfig } from '../../common/types';
 
 export async function jsDebugTerminal(terminalConfigRaw: TerminalConfig) {
   try {
@@ -16,7 +16,7 @@ export async function jsDebugTerminal(terminalConfigRaw: TerminalConfig) {
     await vscode.commands.executeCommand('extension.js-debug.createDebuggerTerminal', commandString);
 
     vscode.window.showInformationMessage('[Open Terminal] A JavaScript Debug Terminal opened successfully 🚀');
-  } catch (e) {
+  } catch (e: any) {
     console.error(`[Open Terminal] ${e.message}`);
     return vscode.window.showErrorMessage(`[Open Terminal] ${e.message}`, 'OK');
   }

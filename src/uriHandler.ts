@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { openTerminal } from './commands/openTerminal';
 import { debugTerminal } from './commands/debugTerminal';
 import { jsDebugTerminal } from './commands/jsDebugTerminal';
-import { Commands } from './common/types';
+import { openTerminal } from './commands/openTerminal';
+import { Commands, CommandValues } from './common/types';
 
 const COMMAND_MAPPER = {
   [Commands.OpenTerminal]: openTerminal,
@@ -22,27 +22,29 @@ export default class UriHandler implements vscode.UriHandler {
     this.disposables = [];
   }
 
-  handleUri(uri: vscode.Uri) {
-    const command = uri.path.replaceAll('/', '');
+  handleUri(uri: vscode.Uri): void {
+    const command = uri.path.replaceAll('/', '') as CommandValues;
 
-    if (!Object.keys(COMMAND_MAPPER).includes(command))
-      return vscode.window.showErrorMessage(
+    if (!Object.keys(COMMAND_MAPPER).includes(command)) {
+      vscode.window.showErrorMessage(
         "[Open Terminal] Allowed commands are: [ '', '/debug', '/js-debug' ]. Example: 'vscode://open.in-terminal/js-debug?config={...}'",
         'Forgive me',
       );
+      return;
+    }
 
     const terminalConfig = this.extractConfigFromUri(uri);
 
-    return COMMAND_MAPPER[command](terminalConfig);
+    COMMAND_MAPPER[command](terminalConfig);
   }
 
   extractConfigFromUri(uri: vscode.Uri) {
     try {
       const searchParams = new URLSearchParams(uri.query);
 
-      const configAsString = searchParams.get('config');
+      const configAsString = searchParams.get('config')!;
 
-      const isEncoded = ['true', '1'].includes(searchParams.get('encoded'));
+      const isEncoded = ['true', '1'].includes(searchParams.get('encoded')!);
 
       const decodedConfigAsString = isEncoded ? decodeURIComponent(atob(configAsString)) : configAsString;
 
