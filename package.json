@@ -3,7 +3,7 @@
   "displayName": "Open Terminal Programmatically",
   "description": "Programmatically open your terminal 🚀",
   "icon": "assets/logo-big.png",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "dist/extension.js",
   "publisher": "open",
