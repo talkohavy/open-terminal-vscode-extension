@@ -10,6 +10,7 @@
 .Trashes
 Thumbs.db
 
+.pnpm-store
 dist
 node_modules
 *.vsix
