@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { debugTerminal } from './commands/debugTerminal';
 import { jsDebugTerminal } from './commands/jsDebugTerminal';
 import { openTerminal } from './commands/openTerminal';
-import { Commands } from './common/types';
+import { Commands, CommandValues } from './common/types';
 
 const COMMAND_MAPPER = {
   [Commands.OpenTerminal]: openTerminal,
@@ -14,6 +14,7 @@ export default class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
 
   constructor() {
+    // @ts-ignore
     this.disposables.push(vscode.window.registerUriHandler(this));
   }
 
@@ -22,8 +23,9 @@ export default class UriHandler implements vscode.UriHandler {
     this.disposables = [];
   }
 
+  // @ts-ignore
   handleUri(uri: vscode.Uri) {
-    const command = uri.path.replaceAll('/', '');
+    const command = uri.path.replaceAll('/', '') as CommandValues;
 
     if (!Object.keys(COMMAND_MAPPER).includes(command))
       return vscode.window.showErrorMessage(
@@ -40,9 +42,9 @@ export default class UriHandler implements vscode.UriHandler {
     try {
       const searchParams = new URLSearchParams(uri.query);
 
-      const configAsString = searchParams.get('config');
+      const configAsString = searchParams.get('config')!;
 
-      const isEncoded = ['true', '1'].includes(searchParams.get('encoded'));
+      const isEncoded = ['true', '1'].includes(searchParams.get('encoded')!);
 
       const decodedConfigAsString = isEncoded ? decodeURIComponent(atob(configAsString)) : configAsString;
 

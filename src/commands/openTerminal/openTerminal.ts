@@ -30,7 +30,7 @@ export async function openTerminal(terminalConfigRaw: TerminalConfig) {
     term.sendText(commandString);
 
     vscode.window.showInformationMessage('[Open Terminal] A new Terminal opened successfully 🚀');
-  } catch (e) {
+  } catch (e: any) {
     console.error(`[Open Terminal] ${e.message}`);
     return vscode.window.showErrorMessage(`[Open Terminal] ${e.message}`, 'OK');
   }

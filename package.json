@@ -24,7 +24,9 @@
     "version": "npm run format-fix && npm run compile && npm run package",
     "postversion": "git push && git push --tags && npm run publish"
   },
-  "activationEvents": ["onStartupFinished"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "contributes": {
     "configuration": {},
     "commands": [
@@ -55,15 +57,22 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": ["vscode", "vsc", "extension", "terminal"],
-  "categories": ["Other"],
+  "keywords": [
+    "vscode",
+    "vsc",
+    "extension",
+    "terminal"
+  ],
+  "categories": [
+    "Other"
+  ],
   "dependencies": {
-    "@types/node": "^25.9.2",
     "@types/vscode": "^1.120.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^25.9.2",
     "eslint": "^10.4.1",
     "eslint-plugin-ezlint": "^1.6.6",
     "eslint-plugin-import": "^2.32.0",

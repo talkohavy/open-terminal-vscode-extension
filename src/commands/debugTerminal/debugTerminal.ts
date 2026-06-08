@@ -11,7 +11,7 @@ export async function debugTerminal(launchConfigRaw: LaunchConfig) {
     await vscode.commands.executeCommand('workbench.debug.action.focusRepl');
 
     await vscode.window.showInformationMessage('[Open Terminal] Debug session started successfully 🚀');
-  } catch (error) {
+  } catch (error: any) {
     console.error(`[Open Terminal] ${error.message}`);
     return vscode.window.showErrorMessage(`[Open Terminal] ${error.message}`, "I'm sorry");
   }
