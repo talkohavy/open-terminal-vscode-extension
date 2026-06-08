@@ -1,0 +1,1 @@
+export { openTerminal } from './openTerminal';

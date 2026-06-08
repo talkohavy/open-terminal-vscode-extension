@@ -1,7 +1,16 @@
 import * as vscode from 'vscode';
-import { ALLOWED_COMMANDS } from './commands';
+import { openTerminal } from './commands/openTerminal';
+import { debugTerminal } from './commands/debugTerminal';
+import { jsDebugTerminal } from './commands/jsDebugTerminal';
+import { Commands } from './common/types';
 
-class UriHandler implements vscode.UriHandler {
+const COMMAND_MAPPER = {
+  [Commands.OpenTerminal]: openTerminal,
+  [Commands.DebugTerminal]: debugTerminal,
+  [Commands.JsDebugTerminal]: jsDebugTerminal,
+};
+
+export default class UriHandler implements vscode.UriHandler {
   private disposables: vscode.Disposable[] = [];
 
   constructor() {
@@ -15,15 +24,16 @@ class UriHandler implements vscode.UriHandler {
 
   handleUri(uri: vscode.Uri) {
     const command = uri.path.replaceAll('/', '');
-    if (!Object.keys(ALLOWED_COMMANDS).includes(command))
+
+    if (!Object.keys(COMMAND_MAPPER).includes(command))
       return vscode.window.showErrorMessage(
-        "[Open Terminal] Allowed commands are: [ '', '/debug' ]. Example: 'vscode://open.in-terminal/debug?config={...}'",
+        "[Open Terminal] Allowed commands are: [ '', '/debug', '/js-debug' ]. Example: 'vscode://open.in-terminal/js-debug?config={...}'",
         'Forgive me',
       );
 
     const terminalConfig = this.extractConfigFromUri(uri);
 
-    return ALLOWED_COMMANDS[command](terminalConfig);
+    return COMMAND_MAPPER[command](terminalConfig);
   }
 
   extractConfigFromUri(uri: vscode.Uri) {
@@ -45,5 +55,3 @@ class UriHandler implements vscode.UriHandler {
     }
   }
 }
-
-export default UriHandler;
