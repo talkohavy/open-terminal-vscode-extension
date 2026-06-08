@@ -17,16 +17,10 @@
     "tsc": "tsc -p tsconfig.json",
     "build": "webpack --mode development",
     "build:watch": "webpack --mode development --watch",
-    "format-fix": "prettier . --write --config ./.prettierrc.mjs --ignore-path .prettierignore",
     "package": "vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies",
-    "preversion": "npm test",
-    "version": "npm run format-fix && npm run compile && npm run package",
-    "postversion": "git push && git push --tags && npm run publish"
+    "publish": "vsce publish --no-dependencies"
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
+  "activationEvents": ["onStartupFinished"],
   "contributes": {
     "configuration": {},
     "commands": [
@@ -57,15 +51,8 @@
   "engines": {
     "vscode": "^1.86.0"
   },
-  "keywords": [
-    "vscode",
-    "vsc",
-    "extension",
-    "terminal"
-  ],
-  "categories": [
-    "Other"
-  ],
+  "keywords": ["vscode", "vsc", "extension", "terminal"],
+  "categories": ["Other"],
   "dependencies": {
     "@types/vscode": "^1.120.0",
     "yup": "^1.7.1"
